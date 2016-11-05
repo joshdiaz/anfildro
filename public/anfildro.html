@@ -57,14 +57,17 @@
       <tfoot>
         <tr v-if="!error" class="info">
           <td colspan="3">
-            <div class="component form-inline">
+            <div class="component form-inline" v-if="!upload_in_progress">
               <div class="form-group">
                 <label for="file-upload" class="control-label">Select file to upload:</label>
-                <input type="file" id="file-upload" class="input-file" />
+                <input type="file" id="file-upload" class="input-file" v-bind:disabled="upload_in_progress" />
               </div>
             </div>
+            <div v-if="upload_in_progress" class="text-center">
+              <span>{{ upload_progress }}% Complete</span>
+            </div>
           </td>
-          <td class="upload-btn"><button class="btn btn-sm btn-primary" v-on:click="upload()">UPLOAD</button></td>
+          <td class="upload-btn"><button class="btn btn-sm btn-primary" v-on:click="upload()" v-bind:disabled="upload_in_progress">UPLOAD</button></td>
         </tr>
       </tfoot>
     </table>

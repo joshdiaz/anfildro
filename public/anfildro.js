@@ -5,7 +5,9 @@ var file_list = new Vue({
     url: (window.location.protocol + '//' + window.location.host),
     error: '',
     files: [],
-    deletion_passwords: []
+    deletion_passwords: [],
+    upload_in_progress: false,
+    upload_progress: 0
   },
 
   created: function () {
@@ -89,18 +91,29 @@ var file_list = new Vue({
         return;
       }
 
+      this.upload_progress = 0;
+      this.upload_in_progress = true;
+
       // Prepare the POST form data for Axios
       var form_upload = new FormData();
       form_upload.append('file', file_upload.files[0]);
 
+      var config = {
+        onUploadProgress: function (progress_event) {
+          file_list.upload_progress = Math.round((progress_event.loaded / progress_event.total) * 100);
+        }
+      };
+
       axios
-        .post(this.url + '/files', form_upload)
+        .post(this.url + '/files', form_upload, config)
         .then(function (response) {
-          file_list.deletion_passwords.push(response.data);
-          file_list.refresh();
           file_upload.value = null;
+          file_list.deletion_passwords.push(response.data);
+          file_list.upload_in_progress = false;
+          file_list.refresh();
         })
         .catch(function (error) {
+          file_list.upload_in_progress = false;
           alert('Upload failed.');
         })
       ;
