@@ -1,7 +1,6 @@
 {
-    "name": "laravel/lumen",
-    "description": "The Laravel Lumen Framework.",
-    "keywords": ["framework", "laravel", "lumen"],
+    "name": "joshdiaz/anfildro",
+    "description": "ANonymous FILe DROp",
     "license": "MIT",
     "type": "project",
     "require": {

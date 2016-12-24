@@ -1,3 +1,6 @@
+var axios = require('axios');
+var Vue = require('vue');
+
 var file_list = new Vue({
   el: '#file-list',
 
@@ -55,7 +58,8 @@ var file_list = new Vue({
       var deletion_password = null;
       var file_list = this;
 
-      for (candidate of this.deletion_passwords) {
+      for (var index in this.deletion_passwords) {
+        var candidate = this.deletion_passwords[index];
         if (candidate.uuid == file.uuid) {
           deletion_password = candidate.deletion_password;
           break;
