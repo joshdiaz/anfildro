@@ -5,9 +5,13 @@ use App\File;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-defined('ANFILDRO_VERSION') || define('ANFILDRO_VERSION', '1.0.0');
+defined('ANFILDRO_VERSION') || define('ANFILDRO_VERSION', '1.1.0');
 
 $app->get('/', function () {
+    if (env('ANFILDRO_CLIENT_ENABLED', false)) {
+        return view('client');
+    }
+
     return
         (new Response(
             implode(' ', ['joshdiaz/anfildro', ANFILDRO_VERSION]),

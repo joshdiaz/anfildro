@@ -1,3 +1,4 @@
+@verbatim
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,3 +74,4 @@
   <script src="bundle.js"></script>
 </body>
 </html>
+@endverbatim
